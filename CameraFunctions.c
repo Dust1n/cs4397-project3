@@ -4,22 +4,26 @@
 #include "camerafunctions.h"
 
 enum Color* tiles;
+UInt8* frame;
 int x, y;
 
 enum Color getColor(unsigned char r, unsigned char g, unsigned char b);
 void setTileColor(int i, int j);
 
+void initCamera()
+{
+	InitPobeye2();
+	InitCameraPobeye2();
+}
+
 void setColorTiles(enum Color t[])
 {
-	RGBFrame frame;
 	int i, j;
 	tiles = t;
-	
-	InitPOB-EYE();
-	GetPointerOnRGBFrame(&frame);
-	
+
 	//NOTE; camera image size = 88 x 120 pixels
-	GrabFrameRGB();
+	frame = GetRGBFrame();
+	GrabRGBFrame();
 	
 	for(i=0; i<8; i++)
 		for(j=0; j<8; j++)
@@ -40,7 +44,7 @@ void setTileColor(int i, int j)
 			{
 				//TODO: adjust numbers based on horizontal or vertical images
 				frameIndex = i*1320 + j*15 + x*120 + y;
-				lastColor = getColor(frame.red[frameIndex], frame.green[frameIndex], frame.blue[frameIndex]);
+				lastColor = getColor(GetRed(frame[frameIndex]), GetGreen(frame[frameIndex]), GetBlue(frame[frameIndex]));
 				
 				if(++colors[lastColor] > colors[highIndex])
 					highIndex = lastColor;
@@ -77,8 +81,3 @@ enum Color getColor(unsigned char r, unsigned char g, unsigned char b)
 	}
 	return black;
 }
-
-
-
-
-
