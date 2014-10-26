@@ -6,5 +6,6 @@ enum Color{
 };
 
 void setColorTiles(enum Color t[]); 
+void initCamera();
 
 #endif
