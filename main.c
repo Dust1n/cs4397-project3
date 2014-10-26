@@ -7,6 +7,8 @@ int main()
 	int state=0;
 	enum Color tiles[64];
 	
+	initCamera();
+	
 	//TODO: set the camera angle
 	
 	while(1)
